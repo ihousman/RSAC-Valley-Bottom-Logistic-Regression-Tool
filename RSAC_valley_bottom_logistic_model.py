@@ -23,7 +23,14 @@ cwd = os.getcwd()
 cwd = cwd.replace('\\', '/') + '/'
 ###############################################################################
 #Set Python version and home directory
-python_possibilities = {'C:\\Python27\\ArcGIS10.2': [27, 10.2],'C:\\Python27\\ArcGIS10.1': [27, 10.1], 'C:\\Python26\\ArcGIS10.0': [26, 10]}#, 'C:\\Python26': [26, 9.3],'C:\\Python25' : [25, 9.3]}
+python_possibilities = {'C:\\Python27\\ArcGIS10.7': [27, 10.7],\
+                        'C:\\Python27\\ArcGIS10.6': [27, 10.6],\
+                        'C:\\Python27\\ArcGIS10.5': [27, 10.5],\
+                        'C:\\Python27\\ArcGIS10.4': [27, 10.4],\
+                        'C:\\Python27\\ArcGIS10.3': [27, 10.3],\
+                        'C:\\Python27\\ArcGIS10.2': [27, 10.2],\
+                        'C:\\Python27\\ArcGIS10.1': [27, 10.1],\
+                        'C:\\Python26\\ArcGIS10.0': [26, 10]}
 for possibility in python_possibilities:
     if os.path.exists(possibility):
         arc_version = python_possibilities[possibility][1]
@@ -33,24 +40,24 @@ for possibility in python_possibilities:
 ###############################################################################
 #Set up the gdal data and bin environment variable names
 site_packages_dir = python_dir + '/Lib/site-packages/'
-gdal_data_options = [site_packages_dir + 'gdalwin32-1.6/data', site_packages_dir + 'gdalwin32-1.9/bin/gdal-data']
-gdal_bin_options = [site_packages_dir + 'gdalwin32-1.6/bin', site_packages_dir + 'gdalwin32-1.9/bin']
-gdal_data_dir = ''
-gdal_bin_dir = ''
-for data_option in gdal_data_options:
-    if os.path.exists(data_option):
-        gdal_data_dir = data_option
-for bin_option in gdal_bin_options:
-    if os.path.exists(bin_option):
-        gdal_bin_dir = bin_option
+# gdal_data_options = [site_packages_dir + 'gdalwin32-1.6/data', site_packages_dir + 'gdalwin32-1.9/bin/gdal-data']
+# gdal_bin_options = [site_packages_dir + 'gdalwin32-1.6/bin', site_packages_dir + 'gdalwin32-1.9/bin']
+# gdal_data_dir = ''
+# gdal_bin_dir = ''
+# for data_option in gdal_data_options:
+#     if os.path.exists(data_option):
+#         gdal_data_dir = data_option
+# for bin_option in gdal_bin_options:
+#     if os.path.exists(bin_option):
+#         gdal_bin_dir = bin_option
 ###############################################################################
 #Let user know what the directories are
 #(Arc version does not necessarily mean that Arc is installed)
 print 'Arc version:',arc_version
 print 'Python version:', python_version
 print 'Python dir:', python_dir
-print 'GDAL bin:', gdal_bin_dir
-print 'GDAL data:', gdal_data_dir
+# print 'GDAL bin:', gdal_bin_dir
+# print 'GDAL data:', gdal_data_dir
 
 python_version_dec = str(float(python_version)/10)
 python_version = str(python_version)
@@ -426,19 +433,23 @@ def vb_prep(input_dem, output_folder, fill = True, no_data = 0, flow_initiation_
             del std
             del tpizr
     #Computes the compound topographic wetness index (CTWI) and smooths it using a 14x14 circular kernel
-    ctwi = out_base + '_CTWI.img'
-    predictors.append(ctwi)
-    if os.path.exists(ctwi) == False:
-        print 'Computing the compound topographic wetness index'
-        print
-        acc = Raster(dem_flow_acc)
-        slp = Raster(slope_radians)
-        neighborhood = NbrCircle(7, "CELL")
-        ctwi_out = FocalStatistics(Ln((acc + 1) * 100 / Tan((slp) + 0.001)), neighborhood, "MEAN")
-        ctwi_out.save(ctwi)
-        del acc
-        del slp
-        del ctwi_out
+    # ctwi = out_base + '_CTWI.img'
+    # predictors.append(ctwi)
+    # if os.path.exists(ctwi) == False:
+    #     print 'Computing the compound topographic wetness index'
+    #     print
+    #     acc = Raster(dem_flow_acc)
+    #     slp = Raster(slope_radians)
+    #     try:
+    #         neighborhood = NbrCircle(7, "CELL")
+    #         ctwi_out = FocalStatistics(Ln((acc + 1) * 100 / Tan((slp) + 0.001)), neighborhood, "MEAN")
+    #         ctwi_out.save(ctwi)
+    #         del acc
+    #         del slp
+    #         del ctwi_out
+    #     except Exception as e:
+    #         print(e)
+        
     print
     print
     print 'The predictors are:'
@@ -703,6 +714,7 @@ def vb_logistic_model(output, predictor_folder, pred_shp = None, extension_list 
     print
     print
     print 'Completed creating', output
+
 ##############################################################################
 #Preliminary development of an interactive stream visualization package (currently not implemented)
 ##class stream_vis:

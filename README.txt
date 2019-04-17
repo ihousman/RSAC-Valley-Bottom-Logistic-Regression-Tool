@@ -10,9 +10,7 @@ RSAC_valley_bottom_logistic_model_gui.py- The interface to be used if scripting 
 To install:
 1. Extract everything to a folder
 2. If applicable- get admin privileges
-3. Run the Install_r_and_dbfpy.py script (as an administrator if applicable)
-4. Rerun the Install_r_and_dbfpy.py to ensure R and dbfpy were successfully installed
-5. If either did not successfully install, manually run the downloaded executable (often must run "elevated")
+3. Run the Install_r_and_dbfpy.py script (as an administrator if applicable) or run 'pip install dbfpy' and install R from https://cran.r-project.org/
 
 To run:
 Refer to the Logistic_Regression_VB_Tool_Test_Data_Tutorial.pptx in the test_data folder

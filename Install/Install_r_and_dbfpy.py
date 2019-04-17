@@ -32,7 +32,7 @@ r_script_exe, r_dir = find_r_script_exe()
 
 ###############################################################################
 dbfpy_url = ['http://sourceforge.net/projects/dbfpy/files/dbfpy/2.2.5/dbfpy-2.2.5.win32.exe/download', 'dbfpy-2.2.5.win32.exe']
-r_url =  ['http://cran.r-project.org/bin/windows/base/old/3.0.1/R-3.0.1-win.exe', 'R-3.0.1-win.exe']
+r_url =  ['https://cran.r-project.org/bin/windows/base/old/3.5.3/R-3.5.3-win.exe', 'R-3.5.3-win.exe']
 
 if r_script_exe =='':
 

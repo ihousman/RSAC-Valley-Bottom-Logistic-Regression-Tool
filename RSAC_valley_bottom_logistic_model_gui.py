@@ -160,7 +160,7 @@ def prepare_preds():
         vb_prep(in_dem, pred_dir, flow_initiation_threshold = flow_init)
 
         refresh_preds()
-
+        showwarning('Successfully Finished!', 'All predictors have been created')
 
 ######################################################################
 #Runs the logistic regression model with the checked predictor variables
@@ -181,9 +181,10 @@ def run_logistic_model():
         print vb_field
         print checked_preds
         vb_logistic_model(output, checked_preds, pred_shp, vb_field = vb_field)
-    except:
+        showwarning('Successfully Finished!', 'Logistic regression model has finished at:\n'+output)
+    except Exception as e:
         refresh_preds()
-        warning = showwarning('Select Predictors!', 'Must select predictors first')
+        warning = showwarning('Error!', e)
 ################################################################################################
 def default_logistic_model():
     pred_keys = ['Height_Above_Channel', 'Euc_times_Slope']
@@ -202,6 +203,7 @@ def default_logistic_model():
     print
     print
     print 'Completed running default logistic regression model'
+    showwarning('Successfully Finished!', 'Logistic regression model has finished!')
 ################################################################################################
 ################################################################################################
 #Set up the gui window
