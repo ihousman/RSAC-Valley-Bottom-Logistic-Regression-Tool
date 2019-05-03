@@ -53,9 +53,9 @@ site_packages_dir = python_dir + '/Lib/site-packages/'
 ###############################################################################
 #Let user know what the directories are
 #(Arc version does not necessarily mean that Arc is installed)
-print 'Arc version:',arc_version
-print 'Python version:', python_version
-print 'Python dir:', python_dir
+print('Arc version:',arc_version)
+print('Python version:', python_version)
+print('Python dir:', python_dir)
 # print 'GDAL bin:', gdal_bin_dir
 # print 'GDAL data:', gdal_data_dir
 
@@ -98,7 +98,7 @@ for option in program_files_dir_options:
     if os.path.exists(option):
         program_files_dir = option
         break
-print 'Program files dir:', program_files_dir
+print('Program files dir:', program_files_dir)
 ###############################################################################
 #Find rscript.exe
 #If your R directory is not in the r_dir_options, add it to the list
@@ -128,7 +128,7 @@ def find_r_script_exe():
         #print 'r_script_exe',r_script_exe
     return r_script_exe, r_dir
 r_script_exe, r_dir = find_r_script_exe()
-print 'Rscript.exe:', r_script_exe
+print('Rscript.exe:', r_script_exe)
 ###############################################################################
 ###Set up the R 2.11 path
 ##os.chdir(program_files_dir + '/R/R-2.'+r_version+'.1/bin')
@@ -151,7 +151,7 @@ print 'Rscript.exe:', r_script_exe
 ##os.chdir(cwd)
 ###############################################################################
 if arc_version > 9.3:#== 10 or arc_version == 10.1:
-    print 'Using arcpy'
+    print('Using arcpy')
     import arcpy as gp
     from arcpy import env
     from arcpy.sa import *
@@ -164,9 +164,9 @@ if arc_version > 9.3:#== 10 or arc_version == 10.1:
     env.workspace = wd
     gp.OverwriteOutput = True
 elif python_version == 26:
-    print '*****Using Python 26 to run this script*****'
-    print''
-    print''
+    print('*****Using Python 26 to run this script*****')
+    print
+    print
     #Import system modules
     import sys, string
     #the next two lines are required if you have ever uninstalled the Python that came with ArcGIS and put a new one on
@@ -190,9 +190,9 @@ elif python_version == 26:
 
 #Use this for PYTHON 2.5
 elif python_version == 25:
-    print '*****Using Python 25 to run this script*****'
-    print''
-    print''
+    print('*****Using Python 25 to run this script*****')
+    print
+    print
     import arcgisscripting, csv
     from dbfpy import dbf
 
@@ -211,8 +211,8 @@ elif python_version == 25:
     # Set environments
     gp.overwriteoutput = 1
 else:
-    print 'Must have Python 2.4 or 2.5 installed in order to run this program.  Please download from www.Python.org'
-    print''
+    print('Must have Python 2.4 or 2.5 installed in order to run this program.  Please download from www.Python.org')
+    print
     raw_input('!!!Press enter to continue!!!')
 
 ####################################################################################
@@ -227,8 +227,8 @@ def dbf_to_list(dbf_file, field_name):
     #First it finds wither the extension is not a .dbf by splitting the extension out
     if os.path.splitext(dbf_file)[1] != '.dbf':
         #Then the user is prompted with what occured and prompted to exit as above
-        print 'Must input a .dbf file'
-        print 'Cannot compile ' + dbf_file
+        print('Must input a .dbf file')
+        print('Cannot compile ' + dbf_file)
         raw_input('Press enter to continue')
         sys.exit()
 
@@ -270,12 +270,13 @@ def vb_prep(input_dem, output_folder, fill = True, no_data = 0, flow_initiation_
         masked_out = out_int_base + '_Masked.img'
         if os.path.exists(masked_out) == False:
             print 'Masking no data values'
-            outCon = Con(input_dem, input_dem, "","VALUE > " + str(no_data))
+            outCon = Con(input_dem, input_dem, "","VALUE != " + str(no_data))
             outCon.save(masked_out)
             del outCon
     else:
         masked_out = input_dem
 
+ 
     #Fill the dem
     dem_fill = out_int_base + '_Fill.img'
     if os.path.exists(dem_fill) == False:
@@ -288,6 +289,7 @@ def vb_prep(input_dem, output_folder, fill = True, no_data = 0, flow_initiation_
     #Find some basic info about teh filled dem for use in subsequent steps
     info = gp.Describe(dem_fill)
     res = info.meanCellHeight
+ 
 
     #Calculates the hillshade
     hillshade = out_int_base + '_hillshade.img'
@@ -747,16 +749,16 @@ def vb_logistic_model(output, predictor_folder, pred_shp = None, extension_list 
 ##        #del array
 ##############################################################################
 ##############################################################################
-#in_dir = 'C:/Valley_Bottom_Logistic_Model/inputs/'
-##out_dir = 'C:/Valley_Bottom_Logistic_Model/outputs/'
-#in_dem = in_dir + 'TaylorRv_Watershed_Project_subset_dem_clp.img'
+# in_dir = 'C:/RSAC-Valley-Bottom-Logistic-Regression-Tool/test_data/'
+# out_dir = 'C:/RSAC-Valley-Bottom-Logistic-Regression-Tool/test_output_predictors/'
+# in_dem = in_dir + 'be_storrie_clip_int.img'
 #in_dir = 'C:/Valley_Bottom_Logistic_Model/outputs10_pred3/Intermediate/TaylorRv_Watershed_Project_subset_dem_clp_Flow_Dir.img'
 #in_acc = 'C:/Valley_Bottom_Logistic_Model/outputs/Intermediate/TaylorRv_Watershed_Project_subset_dem_clp_Flow_Accumulation.img'
 #sv = stream_vis(in_acc)
 #sv.display_image()
 ##pred_shp = in_dir + 'TaylorRv_Watershed_Project_subset_training1.shp'
 ##output = out_dir + 'vb_test.img'
-###vb_prep(in_dem, out_dir)
+# vb_prep(in_dem, out_dir)
 ##vb_logistic_model(output, out_dir, pred_shp)
 #pred_tab = 'D:/Valley_Bottom_Logistic_Model/update/test_outputs/vb_test_predictor_table.txt'
 #logistic_model_rscript(pred_tab, pred_field_name = 'VB', name_prefix = '')

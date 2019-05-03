@@ -35,7 +35,7 @@ def select_shp():
     shp = str(askopenfilename(title = 'Select Predictor Point Shapefile', initialdir = idir,filetypes=[("SHAPEFILE","*.shp")]))
     global idir
     idir = os.path.dirname(shp)
-    print 'You selected:', shp
+    print('You selected:', shp)
     if shp != '':
         global in_shpe
         in_shpe.destroy()
@@ -55,7 +55,7 @@ def select_dem():
     dem = str(askopenfilename(title = 'Select DEM raster', initialdir = idir,filetypes=[("IMAGINE","*.img"),("tif","*.tif"), ('All Files', '*.*')]))
     global idir
     idir = os.path.dirname(dem)
-    print 'You selected:', dem
+    print('You selected:', dem)
     if dem != '':
         global in_deme
         in_deme.destroy()
@@ -124,7 +124,7 @@ def refresh_preds():
         for ci in ci_list:
             ci.destroy()
     except:
-        print ''
+        print('')
     global states, ci_list
     states = []
     ci_list = []
@@ -150,8 +150,8 @@ def prepare_preds():
     if pred_dir[-1] != '/':
         pred_dir += '/'
     flow_init = int(fl.get())
-    print in_dem
-    print pred_dir
+    print(in_dem)
+    print(pred_dir)
     if os.path.exists(in_dem) == False:
         warning = showwarning('DEM does not exist!', 'Please select an existing DEM')
     if os.path.exists(pred_dir) == False:
@@ -176,10 +176,10 @@ def run_logistic_model():
         output = out_vbe.get()
         pred_shp = in_shpe.get()
         vb_field = predictor_fielde.get()
-        print output
-        print pred_shp
-        print vb_field
-        print checked_preds
+        print(output)
+        print(pred_shp)
+        print(vb_field)
+        print(checked_preds)
         vb_logistic_model(output, checked_preds, pred_shp, vb_field = vb_field)
         showwarning('Successfully Finished!', 'Logistic regression model has finished at:\n'+output)
     except Exception as e:
@@ -202,7 +202,7 @@ def default_logistic_model():
         warning = showwarning('Prepare Predictors!', 'Please run prepare predictors to\nensure default predictors exist')
     print
     print
-    print 'Completed running default logistic regression model'
+    print('Completed running default logistic regression model')
     showwarning('Successfully Finished!', 'Logistic regression model has finished!')
 ################################################################################################
 ################################################################################################
@@ -214,7 +214,7 @@ root.geometry("+0+0")
 try:
     root.iconbitmap(default =  cwd + 'VB_logo.ico')
 except:
-    print 'No icon found'
+    print('No icon found')
 top = Menu(root)
 root.config(menu = top)
 ################################################################################
